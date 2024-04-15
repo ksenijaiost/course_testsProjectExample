@@ -92,20 +92,20 @@ public class CentralBank {
      */
     public void transactionCancellation(UUID user, int number) throws Exception {
         ICard getCardTransaction = getCard(user);
-        if (getCardTransaction.getTransaction(number).getFrom() == null && getCardTransaction.getTransaction(number).getTo() != null) {
+        if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() == null) {
             getCardTransaction.withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
             getCardTransaction.removeTransaction(number);
         }
-
-        if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() == null) {
-            getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
-            getCardTransaction.removeTransaction(number);
-        }
-
-        if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() != null) {
-            getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
-            getCard(getCardTransaction.getTransaction(number).getTo()).withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
-            getCardTransaction.removeTransaction(number);
+        else {
+            if (getCardTransaction.getTransaction(number).getFrom() == null && getCardTransaction.getTransaction(number).getTo() != null) {
+                getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
+                getCardTransaction.removeTransaction(number);
+            } else
+            if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() != null) {
+                getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
+                getCard(getCardTransaction.getTransaction(number).getTo()).withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
+                getCardTransaction.removeTransaction(number);
+            }
         }
     }
 }
