@@ -14,13 +14,26 @@ import static junit.framework.Assert.assertEquals;
 
 public class AppTest {
     // создание пользователя банка
-    private final User sasha = new UserBuilder("Sasha", "Ivanov", 100000).withAddress("Green Street").build();
+    private final User sasha = new UserBuilder("Sasha", "Ivanov", 100000)
+            .withAddress("Green Street").build();
     // объявление и инициализация "машины времени"
-    private final TimeManager timeManager = new TimeManager(LocalDateTime.of(2022, 9, 1, 0, 0, 0));
+    private final TimeManager timeManager = new TimeManager(LocalDateTime
+            .of(2022, 9, 1, 0, 0, 0));
     // создаем банк
-    private final Bank sber = new Bank("SberBank", 1, 2, 5, 5000, 10000, 2, -1000000, 1000, 999999999);
+    private final Bank sber = new Bank(
+            "SberBank",
+            1,
+            2,
+            5,
+            5000,
+            10000,
+            2,
+            -1000000,
+            1000,
+            999999999);
     // временную точку отчета
-    private final LocalDateTime dateFirst = LocalDateTime.of(2022, 9, 1, 0, 0, 0);
+    private final LocalDateTime dateFirst =
+            LocalDateTime.of(2022, 9, 1, 0, 0, 0);
 
     public AppTest() throws Exception {
     }
@@ -95,7 +108,10 @@ public class AppTest {
         // добавляем пользователя
         sber.addUser(sasha);
         // Открываем ему депозитный счет с 15 тыс. рублей
-        sber.addDepositCard(dateFirst, LocalDateTime.of(2022, 9, 2, 0, 0, 0), 15000, sasha.getUserId());
+        sber.addDepositCard(dateFirst,
+                LocalDateTime.of(2022, 9, 2, 0, 0, 0),
+                15000,
+                sasha.getUserId());
         // добавляем месяц
         timeManager.addObserver(sber);
         timeManager.addMonth();
@@ -106,7 +122,8 @@ public class AppTest {
     @Test
     public void testCheckTransferAndCancellationOfTransaction() throws Exception {
         // создаем Ивана с помощью билдера
-        User ivan = new UserBuilder("Ivan", "Petrov", 10000).withAddress("Green Street").withPassportId(123).build();
+        User ivan = new UserBuilder("Ivan", "Petrov", 10000)
+                .withAddress("Green Street").withPassportId(123).build();
         // добавляем сбербанк в центральный банк и также
         // добавляем Александра и Ивана в наш банк
         CentralBank centralBank = new CentralBank();
@@ -118,7 +135,8 @@ public class AppTest {
         sber.addDebitCard(dateFirst, 50000, ivan.getUserId());
         timeManager.addObserver(sber);
         // Один переводит другому денежные средства в сумме 25000
-        centralBank.transferMoney(25000, sber.getListDebitCards().get(0).getCardId(), sber.getListDebitCards().get(1).getCardId());
+        centralBank.transferMoney(25000, sber.getListDebitCards().get(0).getCardId(),
+                sber.getListDebitCards().get(1).getCardId());
         // И теперь мы видим, что в результате у нас у одного 75 тыс. а у другого 25 тыс
         assertEquals(75000, sber.getListDebitCards().get(1).getBalance(), 0.001);
         assertEquals(25000, sber.getListDebitCards().get(0).getBalance(), 0.001);

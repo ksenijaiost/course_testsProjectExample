@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
 /**
  * CentralBank представляет собой центральный банк, который управляет списком банков и их транзакциями.
- *  @author Alexander Kichmarev
- *  @version 1.0
- *  @since 26.02.2023
+ *
+ * @author Alexander Kichmarev
+ * @version 1.0
+ * @since 26.02.2023
  */
 public class CentralBank {
 
@@ -92,18 +94,20 @@ public class CentralBank {
      */
     public void transactionCancellation(UUID user, int number) throws Exception {
         ICard getCardTransaction = getCard(user);
-        if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() == null) {
+        if (getCardTransaction.getTransaction(number).getFrom() != null
+                && getCardTransaction.getTransaction(number).getTo() == null) {
             getCardTransaction.withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
             getCardTransaction.removeTransaction(number);
-        }
-        else {
-            if (getCardTransaction.getTransaction(number).getFrom() == null && getCardTransaction.getTransaction(number).getTo() != null) {
+        } else {
+            if (getCardTransaction.getTransaction(number).getFrom() == null
+                    && getCardTransaction.getTransaction(number).getTo() != null) {
                 getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
                 getCardTransaction.removeTransaction(number);
-            } else
-            if (getCardTransaction.getTransaction(number).getFrom() != null && getCardTransaction.getTransaction(number).getTo() != null) {
+            } else if (getCardTransaction.getTransaction(number).getFrom() != null
+                    && getCardTransaction.getTransaction(number).getTo() != null) {
                 getCardTransaction.topUpCardWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
-                getCard(getCardTransaction.getTransaction(number).getTo()).withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
+                getCard(getCardTransaction.getTransaction(number).getTo())
+                        .withdrawMoneyWithOutHistory(getCardTransaction.getTransaction(number).getMoney());
                 getCardTransaction.removeTransaction(number);
             }
         }

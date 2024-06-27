@@ -125,7 +125,8 @@ public class CreditCard implements ICard {
      * Снимает деньги со счета кредитной карты без добавления транзакции в историю транзакций.
      *
      * @param money сумма денег, подлежащая снятию со счета.
-     * @throws CreditCardException если пользователь не идентифицирован и сумма вывода превышает лимит ненадежного пользователя,
+     * @throws CreditCardException если пользователь не идентифицирован и сумма вывода превышает лимит ненадежного
+     * пользователя,
      *                             если сумма вывода отрицательна или если сумма вывода превышает кредитный лимит.
      */
     public void withdrawMoneyWithOutHistory(double money) throws Exception {
@@ -163,7 +164,8 @@ public class CreditCard implements ICard {
      * Adds specified amount of money to the balance of the credit card without recording the transaction history.
      *
      * @param money the amount of money to be added to the balance. Must be a positive non-zero value.
-     * @throws CreditCardException if the specified amount of money is negative or zero, which is not allowed for topping up a card.
+     * @throws CreditCardException if the specified amount of money is negative or zero, which is not allowed for
+     * topping up a card.
      */
     public void topUpCardWithOutHistory(double money) throws Exception {
         if (money <= 0) {
@@ -177,8 +179,10 @@ public class CreditCard implements ICard {
      *
      * @param money сумма денег для перевода
      * @param card  карта для перевода денег на другой счет
-     * @throws CreditCardException если пользователь ненадежен и сумма перевода превышает лимит ненадежного пользователя,
-     *                             если сумма перевода отрицательна или равна нулю, или если при переводе превышен кредитный лимит.
+     * @throws CreditCardException если пользователь ненадежен и сумма перевода превышает лимит ненадежного
+     * пользователя,
+     *                             если сумма перевода отрицательна или равна нулю, или если при переводе превышен
+     *                             кредитный лимит.
      * @throws Exception           если во время передачи возникнет какая-либо другая ошибка.
      */
     public void transferMoney(double money, ICard card) throws Exception {
