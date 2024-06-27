@@ -17,6 +17,9 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Те же методы, что AppTest, только более в верном варианте - демонстративнее и читабельнее.
+ */
 public class App1Test {
     private User sasha;
     private TimeManager timeManager;

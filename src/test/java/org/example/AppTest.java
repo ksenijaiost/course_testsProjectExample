@@ -47,7 +47,7 @@ public class AppTest {
         // Проверка булевского метода внутри пользователя
         // Иван должен вернуть true, то есть это значит что он доверенный
         Assert.assertTrue(ivan.verificationPersonalData());
-        // Это плох вариант и у нас в вариации метода assert есть много синтаксического сахара
+        // Этот вариант плох, и у нас в вариации метода assert есть много синтаксического сахара
         // Assert.assertEquals(true, ivan.verificationPersonalData());
         // Александр должен вернуть False, ибо он не доверенный
         Assert.assertFalse(sasha.verificationPersonalData());
