@@ -8,10 +8,10 @@ import java.util.UUID;
  * Он содержит информацию об отправителе, получателе, дате транзакции и сумме переведенных денег.
  */
 public class Transaction {
-    private UUID from;
-    private UUID to;
-    private LocalDateTime dateTransaction;
-    private double money;
+    private final UUID from;
+    private final UUID to;
+    private final LocalDateTime dateTransaction;
+    private final double money;
 
     /**
      * Создает новый объект транзакции с указанным отправителем, получателем, датой и суммой денег.

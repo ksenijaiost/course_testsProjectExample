@@ -12,7 +12,7 @@ import java.util.List;
  * Класс TimeManager отвечает за управление временем и уведомление своих наблюдателей об изменении времени.
  */
 public class TimeManager {
-    private List<IObserver> observers;
+    private final List<IObserver> observers;
     private LocalDateTime timeStamp;
 
     /**

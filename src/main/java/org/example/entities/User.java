@@ -12,8 +12,8 @@ import java.util.UUID;
 public class User {
     private final List<UUID> listCardId = new ArrayList<>();
     private UUID userId;
-    private String Name;
-    private String Surname;
+    private final String Name;
+    private final String Surname;
     public int PassportId;
     public double Balance;
     public String Address;

@@ -14,9 +14,9 @@ import java.util.UUID;
  * баланс, список транзакций, процентная сумма, флаг, указывающий, был ли пользователь идентифицирован или нет, и лимит ненадежного пользователя.
  */
 public class DebitCard implements ICard {
-    private List<Transaction> transactions;
-    private UUID cardId;
-    private LocalDateTime dateCreate;
+    private final List<Transaction> transactions;
+    private final UUID cardId;
+    private final LocalDateTime dateCreate;
     private LocalDateTime dateNow;
     private double percentSum;
     private double balance;

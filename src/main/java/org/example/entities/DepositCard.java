@@ -130,15 +130,7 @@ public class DepositCard implements ICard {
      * @throws Exception            если при попытке вывести деньги возникает ошибка
      */
     public void withdrawMoney(double money) throws Exception {
-        if (!identification && money > untrustedUserLimit) {
-            throw new DepositCardException("You cannot withdraw above the limit for an unidentified user");
-        }
-        if (money <= 0) {
-            throw new DepositCardException("You can't take a negative value");
-        }
-        if (balance - money < 0) {
-            throw new DepositCardException("Debit card cannot go into negative");
-        }
+        forWithdrawMoney(money);
         if (dateNow.isBefore(dateEnd)) {
             throw new DepositCardException("Error");
         }
@@ -156,7 +148,24 @@ public class DepositCard implements ICard {
      * @throws Exception            если при попытке вывести деньги возникает ошибка
      */
     public void withdrawMoneyWithOutHistory(double money) throws Exception {
-        if (!identification && money > untrustedUserLimit){
+        forWithdrawMoney(money);
+        if (LocalDateTime.now().isBefore(dateEnd)) {
+            throw new DepositCardException("Date is uncorrected");
+        }
+        balance -= money;
+    }
+
+    /**
+     * Общие проверки для снятия указанной суммы денег с баланса депозитной карты.
+     *
+     * @param money сумма денег для вывода
+     * @throws DepositCardException если пользователь не идентифицирован и сумма вывода превышает лимит для неидентифицированных пользователей,
+     *                              если сумма вывода отрицательная,
+     *                              если сумма вывода превышает баланс.
+     * @throws Exception            если при попытке вывести деньги возникает ошибка
+     */
+    private void forWithdrawMoney(double money) throws Exception {
+        if (!identification && money > untrustedUserLimit) {
             throw new DepositCardException("You cannot withdraw above the limit for an unidentified user");
         }
         if (money <= 0) {
@@ -165,10 +174,6 @@ public class DepositCard implements ICard {
         if (balance - money < 0) {
             throw new DepositCardException("Debit card cannot go into negative");
         }
-        if (LocalDateTime.now().isBefore(dateEnd)) {
-            throw new DepositCardException("Date is uncorrected");
-        }
-        balance -= money;
     }
 
     /**

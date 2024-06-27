@@ -12,19 +12,19 @@ import java.time.LocalDateTime;
 
 import static junit.framework.Assert.assertEquals;
 
-public class AppTest
-{
+public class AppTest {
     // создание пользователя банка
-    private User sasha = new UserBuilder("Sasha", "Ivanov", 100000).withAddress("Green Street").build();
+    private final User sasha = new UserBuilder("Sasha", "Ivanov", 100000).withAddress("Green Street").build();
     // объявление и инициализация "машины времени"
-    private TimeManager timeManager = new TimeManager(LocalDateTime.of(2022, 9, 1, 0, 0, 0));
+    private final TimeManager timeManager = new TimeManager(LocalDateTime.of(2022, 9, 1, 0, 0, 0));
     // создаем банк
-    private Bank sber = new Bank("SberBank", 1, 2, 5, 5000, 10000, 2, -1000000, 1000, 999999999);
+    private final Bank sber = new Bank("SberBank", 1, 2, 5, 5000, 10000, 2, -1000000, 1000, 999999999);
     // временную точку отчета
-    private LocalDateTime dateFirst = LocalDateTime.of(2022, 9, 1, 0, 0, 0);
+    private final LocalDateTime dateFirst = LocalDateTime.of(2022, 9, 1, 0, 0, 0);
 
     public AppTest() throws Exception {
     }
+
     // проверка на то что у нас пользователь доверенный или нет
     // пользователь Александр не указал паспортные данные
     @Test
@@ -39,6 +39,7 @@ public class AppTest
         // Александр должен вернуть False, ибо он не доверенный
         Assert.assertFalse(sasha.verificationPersonalData());
     }
+
     // Проверка функциональности дебетовой карты
     @Test
     public void testCheckDebitCard() throws Exception {
@@ -60,6 +61,7 @@ public class AppTest
         // а делает проверку, что 79999.999 <= x <= 80000.001
         assertEquals(80000, sber.getListDebitCards().get(0).getBalance(), 0.001);
     }
+
     // Проверка функциональности кредитной карты
     @Test
     public void testCheckCreditCard() throws Exception {
@@ -83,6 +85,7 @@ public class AppTest
         // и смотрим, что при жестких процентах пользователю накапал большой долг
         assertEquals(-31900, sber.getListCreditCards().get(0).getBalance(), 0.001);
     }
+
     // Проверка функциональности депозитного счета
     @Test
     public void testCheckDepositCard() throws Exception {

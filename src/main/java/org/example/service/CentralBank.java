@@ -16,7 +16,7 @@ import java.util.UUID;
  */
 public class CentralBank {
 
-    private List<Bank> listBanks;
+    private final List<Bank> listBanks;
 
     /**
      * Создает новый объект CentralBank.

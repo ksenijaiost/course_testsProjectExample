@@ -2,6 +2,10 @@ package org.example.entities;
 
 import java.util.UUID;
 
+/**
+ * Общий интерфейс для всех видов карт.
+ * Чтобы между картами можно было производить обмен валюты - иначе пришлось бы писать множество вариаций.
+ */
 public interface ICard {
     void withdrawMoneyWithOutHistory(double money) throws Exception;
 

@@ -4,7 +4,7 @@ package org.example.entities;
 import org.example.exception.UserBuilderException;
 
 public class UserBuilder {
-    private User user;
+    private final User user;
 
     /**
      * Создает объект User Builder с заданными именем, фамилией и балансом.

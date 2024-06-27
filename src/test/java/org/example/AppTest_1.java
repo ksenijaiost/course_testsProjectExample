@@ -1,5 +1,5 @@
 package org.example;
-import junit.framework.Assert;
+
 import org.example.entities.Bank;
 import org.example.entities.User;
 import org.example.entities.UserBuilder;
@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 import java.time.LocalDateTime;
-
 import java.util.concurrent.TimeUnit;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AppTest_1 {
@@ -92,6 +92,7 @@ public class AppTest_1 {
         assertEquals(50000, sber.getListDebitCards().get(1).getBalance(), 0.001);
         assertEquals(50000, sber.getListDebitCards().get(0).getBalance(), 0.001);
     }
+
     @Test
     public void testAddNullBank() {
         CentralBank centralBank = new CentralBank();
@@ -107,6 +108,7 @@ public class AppTest_1 {
         // Убеждаемся, что сообщение исключения соответствует ожидаемому
         assertEquals("Unable to add bank due to null object", exception.getMessage());
     }
+
     @Test
     public void testMoneyTransferAndTransactionCancellation() throws Exception {
         User ivan = new UserBuilder("Ivan", "Petrov", 10000).withAddress("Green Street").withPassportId(123).build();
@@ -131,7 +133,7 @@ public class AppTest_1 {
         assertEquals(35000, sber.getListDebitCards().get(0).getBalance(), 0.001);
 
         // Отменяем нулевую транзакцию 35000 - 10000 = 25000
-        centralBank.transactionCancellation( sber.getListDebitCards().get(0).getCardId(), 0);
+        centralBank.transactionCancellation(sber.getListDebitCards().get(0).getCardId(), 0);
         assertEquals(25000, sber.getListDebitCards().get(0).getBalance(), 0.001);
     }
 }

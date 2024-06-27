@@ -19,21 +19,21 @@ import java.util.UUID;
  * Этот пакет также включает класс BankException, который используется для индикации ошибок в конструкторе класса Bank.
  */
 public class Bank implements IObserver {
-    private List<ICard> listCards = new ArrayList<>();
-    private List<CreditCard> listCreditCards = new ArrayList<>();
-    private List<DebitCard> listDebitCards = new ArrayList<>();
-    private List<DepositCard> listDepositCards = new ArrayList<>();
-    private List<User> users = new ArrayList<>();
-    private double firstStepPercent;
-    private double secondStepPercent;
-    private double thirdStepPercent;
-    private double firstStepSum;
-    private double secondStepSum;
-    private double percentDebitCard;
-    private double creditLimit;
-    private double commission;
-    private String title;
-    private double untrustedUserLimit;
+    private final List<ICard> listCards = new ArrayList<>();
+    private final List<CreditCard> listCreditCards = new ArrayList<>();
+    private final List<DebitCard> listDebitCards = new ArrayList<>();
+    private final List<DepositCard> listDepositCards = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
+    private final double firstStepPercent;
+    private final double secondStepPercent;
+    private final double thirdStepPercent;
+    private final double firstStepSum;
+    private final double secondStepSum;
+    private final double percentDebitCard;
+    private final double creditLimit;
+    private final double commission;
+    private final String title;
+    private final double untrustedUserLimit;
 
     /**
      * Создает новый объект Bank с указанными параметрами.
@@ -196,44 +196,44 @@ public class Bank implements IObserver {
      * @throws Exception если в процессе обновления возникает ошибка
      */
     public void update(LocalDateTime timeStamp) throws Exception {
-        for (int i = 0; i < users.size(); i++) {
-            for (int j = 0; j < users.get(i).getListCardId().size(); j++) {
-                if (users.get(i).verificationPersonalData() != (findCard(users.get(i).getListCardId().get(j)).getIdentification())) {
-                    findCard(users.get(i).getListCardId().get(j)).setIdentificationFlag();
+        for (User user : users) {
+            for (int j = 0; j < user.getListCardId().size(); j++) {
+                if (user.verificationPersonalData() != (findCard(user.getListCardId().get(j)).getIdentification())) {
+                    findCard(user.getListCardId().get(j)).setIdentificationFlag();
                 }
             }
         }
 
-        for (int i = 0; i < listCreditCards.size(); i++) {
-            listCreditCards.get(i).setCommission(commission);
-            listCreditCards.get(i).setCreditLimit(creditLimit);
-            listCreditCards.get(i).setUntrustedUserLimit(untrustedUserLimit);
-            listCreditCards.get(i).addDay(timeStamp);
+        for (CreditCard listCreditCard : listCreditCards) {
+            listCreditCard.setCommission(commission);
+            listCreditCard.setCreditLimit(creditLimit);
+            listCreditCard.setUntrustedUserLimit(untrustedUserLimit);
+            listCreditCard.addDay(timeStamp);
         }
 
-        for (int i = 0; i < listDebitCards.size(); i++) {
-            listDebitCards.get(i).addDay(timeStamp);
-            listDebitCards.get(i).addPercentSum(percentDebitCard);
-            if (timeStamp.getDayOfMonth() == listDebitCards.get(i).getDateCreate().getDayOfMonth()) {
-                listDebitCards.get(i).interestCalculation();
+        for (DebitCard listDebitCard : listDebitCards) {
+            listDebitCard.addDay(timeStamp);
+            listDebitCard.addPercentSum(percentDebitCard);
+            if (timeStamp.getDayOfMonth() == listDebitCard.getDateCreate().getDayOfMonth()) {
+                listDebitCard.interestCalculation();
             }
-            listDebitCards.get(i).setUntrustedUserLimit(untrustedUserLimit);
+            listDebitCard.setUntrustedUserLimit(untrustedUserLimit);
         }
 
-        for (int i = 0; i < listDepositCards.size(); i++) {
-            listDepositCards.get(i).addDay(timeStamp);
-            listDepositCards.get(i).setUntrustedUserLimit(untrustedUserLimit);
-            if (listDepositCards.get(i).getStartBalance() <= firstStepSum) {
-                listDepositCards.get(i).addPercentSum(firstStepPercent);
+        for (DepositCard listDepositCard : listDepositCards) {
+            listDepositCard.addDay(timeStamp);
+            listDepositCard.setUntrustedUserLimit(untrustedUserLimit);
+            if (listDepositCard.getStartBalance() <= firstStepSum) {
+                listDepositCard.addPercentSum(firstStepPercent);
             }
-            if (listDepositCards.get(i).getStartBalance() > firstStepSum && listDepositCards.get(i).getStartBalance() <= secondStepSum) {
-                listDepositCards.get(i).addPercentSum(secondStepPercent);
+            if (listDepositCard.getStartBalance() > firstStepSum && listDepositCard.getStartBalance() <= secondStepSum) {
+                listDepositCard.addPercentSum(secondStepPercent);
             }
-            if (listDepositCards.get(i).getStartBalance() > secondStepSum) {
-                listDepositCards.get(i).addPercentSum(thirdStepPercent);
+            if (listDepositCard.getStartBalance() > secondStepSum) {
+                listDepositCard.addPercentSum(thirdStepPercent);
             }
-            if (timeStamp.getDayOfMonth() == listDepositCards.get(i).getDateCreate().getDayOfMonth()) {
-                listDepositCards.get(i).interestCalculation();
+            if (timeStamp.getDayOfMonth() == listDepositCard.getDateCreate().getDayOfMonth()) {
+                listDepositCard.interestCalculation();
             }
         }
     }

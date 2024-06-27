@@ -12,14 +12,14 @@ import java.util.UUID;
  * CreditCard представляет собой кредитную карту, которая реализует интерфейс iCard.
  */
 public class CreditCard implements ICard {
-    private List<Transaction> transaction;
-    private UUID cardId;
+    private final List<Transaction> transaction;
+    private final UUID cardId;
     private double balance;
     private double commission;
     private double creditLimit;
     private boolean identification;
     private double untrustedUserLimit;
-    private LocalDateTime dateCreate;
+    private final LocalDateTime dateCreate;
     private LocalDateTime timeNow;
 
     /**
@@ -31,7 +31,7 @@ public class CreditCard implements ICard {
      * @throws CreditCardException если баланс отрицательный
      */
     public CreditCard(LocalDateTime dateCreate, double balance, boolean identification) throws Exception {
-        if (balance < 0){
+        if (balance < 0) {
             throw new CreditCardException("Creating an account must be with a positive balance");
         }
         this.balance = balance;
@@ -69,7 +69,7 @@ public class CreditCard implements ICard {
     }
 
     public void setUntrustedUserLimit(double untrustedUserLimit) throws Exception {
-        if (untrustedUserLimit < 0){
+        if (untrustedUserLimit < 0) {
             throw new CreditCardException("Limit must be positive");
         }
         this.untrustedUserLimit = untrustedUserLimit;
@@ -82,13 +82,13 @@ public class CreditCard implements ICard {
      */
     public void addDay(LocalDateTime dateStamp) {
         timeNow = dateStamp;
-        if (balance < 0){
+        if (balance < 0) {
             balance -= commission;
         }
     }
 
     public void setCommission(double commission) throws Exception {
-        if (commission < 0){
+        if (commission < 0) {
             throw new CreditCardException("Credit commission must be a positive number");
         }
         this.commission = commission;
@@ -129,13 +129,13 @@ public class CreditCard implements ICard {
      *                             если сумма вывода отрицательна или если сумма вывода превышает кредитный лимит.
      */
     public void withdrawMoneyWithOutHistory(double money) throws Exception {
-        if (!identification && money > untrustedUserLimit){
+        if (!identification && money > untrustedUserLimit) {
             throw new CreditCardException("Limit exceeded for an unidentified user");
         }
-        if (money <= 0){
+        if (money <= 0) {
             throw new CreditCardException("You can't take a negative value");
         }
-        if (balance - money < creditLimit){
+        if (balance - money < creditLimit) {
             throw new CreditCardException("Credit limit exceeded when withdrawing");
         }
         balance -= money;
@@ -202,7 +202,7 @@ public class CreditCard implements ICard {
      * @throws CreditCardException если индекс отрицательный или транзакция не существует
      */
     public Transaction getTransaction(int number) throws Exception {
-        if (number < 0){
+        if (number < 0) {
             throw new CreditCardException("Index cannot be negative");
         }
         return transaction.get(number);
