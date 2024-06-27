@@ -23,7 +23,7 @@ public class App
             System.out.println("1: Добавить пользователя в банк");
             System.out.println("2: Создать банк");
             System.out.println("3: Создать кредитную карточку");
-            System.out.println("4: Создать дебитовую карточку");
+            System.out.println("4: Создать дебетовую карточку");
             System.out.println("5: Создать депозитную карточку");
             System.out.println("6: Добавить день");
             System.out.println("7: Добавить месяц");
@@ -94,23 +94,23 @@ public class App
                     centralBank.getBank(titleBank).addCreditCard(timeManager.getTimeStamp(),
                             startBalanceCreditCard,
                             centralBank.getBank(titleBank).findUser(UUID.fromString(guidUser)).getUserId());
-                    System.out.println(String.format("Кредитная карта создана. Её id: %s", centralBank.getBank(titleBank)
+                    System.out.printf("Кредитная карта создана. Её id: %s%n", centralBank.getBank(titleBank)
                             .getListCreditCards().get(centralBank.getBank(titleBank).getListCreditCards().size() - 1)
-                            .getCardId().toString()));
+                            .getCardId().toString());
                     break;
                 case "4":
                     System.out.println("Введите название банка:");
                     String titleBankDebitCard = scanner.nextLine();
                     System.out.println("Введите начальный баланс:");
-                    Double startBalanceDebitCard = scanner.nextDouble();
+                    double startBalanceDebitCard = scanner.nextDouble();
                     System.out.println("Введите id пользователя:");
                     String guidUserDebitCard = scanner.nextLine();
                     centralBank.getBank(titleBankDebitCard).addDebitCard(timeManager.getTimeStamp(),
                             startBalanceDebitCard, centralBank.getBank(titleBankDebitCard)
                                     .findUser(UUID.fromString(guidUserDebitCard)).getUserId());
-                    System.out.println(String.format("Дебитовая карта создана. Её id: %s", centralBank
+                    System.out.printf("Дебетовая карта создана. Её id: %s%n", centralBank
                             .getBank(titleBankDebitCard).getListDebitCards().get(centralBank.getBank(titleBankDebitCard)
-                                    .getListDebitCards().size() - 1).getCardId().toString()));
+                                    .getListDebitCards().size() - 1).getCardId().toString());
                     break;
                 case "5":
                     System.out.println("Введите название банка:");

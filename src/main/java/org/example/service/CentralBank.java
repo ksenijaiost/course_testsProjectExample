@@ -22,7 +22,7 @@ public class CentralBank {
      * Создает новый объект CentralBank.
      */
     public CentralBank() {
-        listBanks = new ArrayList<Bank>();
+        listBanks = new ArrayList<>();
     }
 
     public List<Bank> getListBanks() {

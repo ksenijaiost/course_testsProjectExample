@@ -35,7 +35,7 @@ public class AppTest {
         // Иван должен вернуть true, то есть это значит что он доверенный
         Assert.assertTrue(ivan.verificationPersonalData());
         // Это плох вариант и у нас в вариации метода assert есть много синтаксического сахара
-        // Assert.assertEquals(true,ivan.verificationPersonalData());
+        // Assert.assertEquals(true, ivan.verificationPersonalData());
         // Александр должен вернуть False, ибо он не доверенный
         Assert.assertFalse(sasha.verificationPersonalData());
     }
@@ -75,14 +75,14 @@ public class AppTest {
         sber.addCreditCard(dateFirst, 100, sasha.getUserId());
         // добавляем имитационный месяц
         timeManager.addMonth();
-        // проверяем что у нас баланс нулевой
+        // проверяем, что у нас баланс нулевой
         assertEquals(0, sber.getListCreditCards().get(0).getUntrustedUserLimit(), 0.001);
-        // пользователь снимает со счета 2 тыс рублей
+        // Пользователь снимает со счета 2 тыс. рублей
         sber.getListCreditCards().get(0).withdrawMoney(2000);
         timeManager.addObserver(sber);
         // потом мы добавляем еще месяц
         timeManager.addMonth();
-        // и смотрим, что при жестких процентах пользователю накапал большой долг
+        // И смотрим, что при жестких процентах пользователю накапал большой долг
         assertEquals(-31900, sber.getListCreditCards().get(0).getBalance(), 0.001);
     }
 
@@ -94,7 +94,7 @@ public class AppTest {
         centralBank.addBank(sber);
         // добавляем пользователя
         sber.addUser(sasha);
-        // открываем ему депозитный счет с 15 тыс рублей
+        // Открываем ему депозитный счет с 15 тыс. рублей
         sber.addDepositCard(dateFirst, LocalDateTime.of(2022, 9, 2, 0, 0, 0), 15000, sasha.getUserId());
         // добавляем месяц
         timeManager.addObserver(sber);
@@ -119,7 +119,7 @@ public class AppTest {
         timeManager.addObserver(sber);
         // Один переводит другому денежные средства в сумме 25000
         centralBank.transferMoney(25000, sber.getListDebitCards().get(0).getCardId(), sber.getListDebitCards().get(1).getCardId());
-        // и теперь мы видим, что в результате у нас у одного 75 тыс. а у другого 25 тыс
+        // И теперь мы видим, что в результате у нас у одного 75 тыс. а у другого 25 тыс
         assertEquals(75000, sber.getListDebitCards().get(1).getBalance(), 0.001);
         assertEquals(25000, sber.getListDebitCards().get(0).getBalance(), 0.001);
         // вызовем отмену транзакции

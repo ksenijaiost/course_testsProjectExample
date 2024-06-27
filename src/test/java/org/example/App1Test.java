@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AppTest_1 {
+public class App1Test {
     private User sasha;
     private TimeManager timeManager;
     private Bank sber;
@@ -97,13 +97,8 @@ public class AppTest_1 {
     public void testAddNullBank() {
         CentralBank centralBank = new CentralBank();
 
-        // Создаем объект Bank, но не инициализируем его
-        Bank nullBank = null;
-
         // Проверяем, что при попытке добавить null банк, будет выброшено исключение
-        CentralBankException exception = assertThrows(CentralBankException.class, () -> {
-            centralBank.addBank(nullBank);
-        });
+        CentralBankException exception = assertThrows(CentralBankException.class, () -> centralBank.addBank(null));
 
         // Убеждаемся, что сообщение исключения соответствует ожидаемому
         assertEquals("Unable to add bank due to null object", exception.getMessage());
